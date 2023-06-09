@@ -1,0 +1,583 @@
+\pdfoutput=1 %may be required for arXiv
+\documentclass[11pt]{amsart}
+
+\usepackage{epsfig,overpic,comment}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage[hyphens]{url}
+\usepackage[pagebackref,linktocpage=true,colorlinks=true,linkcolor=Blue,citecolor=BrickRed,urlcolor=RoyalBlue]{hyperref}
+\usepackage[msc-links,abbrev]{amsrefs}
+\usepackage{amsmath,amsthm,amssymb,marginnote}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage{cancel}
+
+\textwidth=5.75in
+\textheight=8in
+\oddsidemargin=0.375in
+\evensidemargin=0.375in
+\topmargin=.5in
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{defin}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\goto}{\rightarrow}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\I}{\textup{I}}
+\newcommand{\II}{\textup{II}}
+\newcommand{\III}{\textup{III}}
+\newcommand{\e}{\varepsilon}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\g}{\gamma}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\ff}{\mathrm{I\!I}}
+
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\S}{\mathbf{S}}
+\renewcommand{\tilde}{\widetilde}
+
+\DeclareMathOperator{\inte}{int}
+\DeclareMathOperator{\cone}{cone}
+\DeclareMathOperator{\conv}{conv}
+\DeclareMathOperator{\cl}{cl}
+\DeclareMathOperator*{\esssup}{ess\;sup}
+\DeclareMathOperator{\vol}{vol}
+
+%definition of \arc
+\makeatletter
+\DeclareFontFamily{U}{tipa}{}
+\DeclareFontShape{U}{tipa}{m}{n}{<->tipa10}{}
+\newcommand{\arc@char}{{\usefont{U}{tipa}{m}{n}\symbol{62}}}%
+
+\newcommand{\arc}[1]{\mathpalette\arc@arc{#1}}
+
+\newcommand{\arc@arc}[2]{%
+  \sbox0{$\m@th#1#2$}%
+  \vbox{
+    \hbox{\resizebox{\wd0}{\height}{\arc@char}}
+    \nointerlineskip
+    \box0
+  }%
+}
+\makeatother
+
+%indentation of subsections in the table of contents
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth % then omit
+  \else
+    \par \addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup \hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus4em \parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima
+      \ifcase #1
+       \or\or \hskip 1.3em \or \hskip 2em \else \hskip 5em \fi%
+      #6\nobreak\relax
+    \hfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par% <---- \dotfill -> \hfill
+    \nobreak
+    \endgroup
+  \fi}
+\makeatother
+
+
+
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+
+
+
+
+\begin{document}
+\setlength{\baselineskip}{1.2\baselineskip}
+
+\title[Convexity and Rigidity in Cartan-Hadamard manifolds] 
+{Convexity and rigidity of hypersurfaces in Cartan-Hadamard manifolds}
+
+\author{Mohammad Ghomi}
+\address{School of Mathematics, Georgia Institute of Technology,
+Atlanta, GA 30332}
+\email{ghomi@math.gatech.edu}
+\urladdr{www.math.gatech.edu/~ghomi}
+
+
+\author{Anton Petrunin}
+\address{Department of Mathematics, Penn State U.
+University Park, Pennsylvania 16802}
+\email{aqp6@psu.edu}
+\urladdr{science.psu.edu/math/people/aqp6}
+
+
+%\vspace*{-0.75in}
+\begin{abstract}
+We show that in Cartan-Hadamard manifolds $\mathcal{H}^n$, of dimension $n\geq 3$, immersed closed hypersurfaces $\Gamma$ with semidefinite second fundamental form bound convex flat regions, if  curvature of  $\mathcal{H}^n$ vanishes on tangent planes of $\Gamma$.
+It follows that closed  simply connected surfaces  in $\mathcal{H}^3$ with minimal total absolute curvature bound Euclidean convex bodies, as conjectured by Gromov in 1985. The proofs employ a generalization of Schur's arm lemma to nonpositively curved manifolds. Refinements of these results when curvature of $\mathcal{H}^n$ is bounded above by $k<0$ are obtained as well.
+\end{abstract}
+
+\date{\today \,(Last Typeset)}
+\subjclass[2010]{Primary: 53C20, 58J05; Secondary: 53C44, 52A15.}
+\keywords{CAT(0) space, Hyperbolic space, Tight surface, Total absolute curvature,  Gap theorem, Schur arm lemma, Reshetnyak majorization theorem, Kirszbrun extension theorem.}
+\thanks{M.G. was supported by NSF grant DMS-2202337, and A.P.  by NSF grant DMS-2005279.}
+
+
+
+\maketitle
+
+%\tableofcontents
+
+\section{Introduction}
+A \emph{Cartan-Hadamard manifold} $\mathcal{H}=\mathcal{H}^n(k)$ is a complete simply connected Riemannian $n$-space with curvature $K_{\mathcal{H}}\leq k\leq 0$. A subset of $\mathcal{H}$ is \emph{convex} if it contains the geodesic connecting every pair of its points, and is called a \emph{convex body} if it has nonempty interior in addition.  A hypersurface $\Gamma$  in $\mathcal{H}$ is \emph{convex} if it is embedded and bounds a convex body. We say that  $\Gamma$  is \emph{infinitesimally convex} if its second fundamental form $\ff_\Gamma$ is  semidefinite, i.e., the principal curvatures of $\Gamma$ do not assume opposite signs at any point. Chern-Lashof \cite{chern-lashof:tight1, chern-lashof:tight2} showed that infinitesimally convex closed hypersurfaces immersed in Euclidean space $\R^n$, $n\geq 3$, are convex, and do Carmo-Warner \cite{docarmo&warner} established the same result in hyperbolic space $\mathbf{H}^n$. These facts generalize as follows:
+
+\begin{theorem}\label{thm:main}
+Let $\Gamma$ be a closed  infinitesimally convex $\C^4$  hypersurface immersed in $\mathcal{H}^n(k)$, $n\geq 3$. Suppose that $K_{\mathcal{H}}\equiv k$ on  tangent planes of $\Gamma$, and either $k=0$ or $\pi_1(\Gamma)$ is finite. Then $\Gamma$  is convex, and $K_{\mathcal{H}}\equiv k$ in the convex body bounded by $\Gamma$.
+\end{theorem}
+
+Here $\pi_1(\Gamma)$ is the fundamental group of $
+\Gamma$. If $K_\mathcal{H}\equiv k$ outside a compact set  in $\mathcal{H}^n(k)$, then letting $\Gamma$ in the above theorem be a sphere enclosing that set yields that $K_\mathcal{H}\equiv k$ everywhere. Thus Theorem \ref{thm:main} extends rigidity results or ``gap theorems'' \cite{seshadri2009} first obtained by Greene-Wu \cite{greene-wu1982} and Gromov \cite[Sec. 5]{ballmann-gromov-schroeder}. 
+In the case where $n=3$ and $\Gamma$ is \emph{strictly convex}, i.e., $\mathrm{I\!I}_\Gamma$ is positive definite, the above result 
+was established  by Ghomi-Spruck \cite{ghomi-spruck-rigidity}, generalizing earlier work of Schroeder-Strake for $k=0$ \cite{schroeder-strake1989a}. We also have the following intrinsic version of Theorem \ref{thm:main}. Let $\mathcal{S}^n(k)$ stand for the \emph{space form}, or complete simply connected $n$-manifold, of constant curvature $k$.
+
+\begin{theorem}\label{thm:main2}
+Let $M^n$, $n\geq 3$, be a compact manifold with infinitesimally convex $\C^4$ boundary $\Gamma$. Suppose that $K_{M}\equiv k\leq 0$, $K_{M}\equiv k$ on  tangent planes of $\Gamma$, and either $k=0$ or $\pi_1(\Gamma)$ is finite. Then $M$ is isometric to a convex body in $\mathcal{S}^n(k)$.
+\end{theorem}
+
+
+
+Theorem \ref{thm:main} has the following application.
+Let $GK:=\det(\mathrm{I\!I}_\Gamma)$ denote the \emph{Gauss-Kronecker} or extrinsic curvature of $\Gamma$. The \emph{total curvature} and \emph{total absolute curvature} of $\Gamma$ are given respectively by
+$$
+\mathcal{G}(\Gamma):=\int_\Gamma GK,\quad\quad\text{and}\quad\quad\tilde{\mathcal{G}}(\Gamma):=\int_\Gamma |GK|.
+$$
+Let $|\Gamma|$ denote the $(n-1)$-dimensional volume of $\Gamma$.
+
+\begin{corollary}\label{cor:main2}
+Let $\Gamma$ be a \emph{simply connected} closed $\C^4$ surface immersed in $\mathcal{H}^3(k)$. Then
+\be\label{eq:G2}
+\tilde\G(\Gamma)\geq 4\pi -k|\Gamma|,
+\ee
+with equality only if $\Gamma$ bounds a convex body where $K_\mathcal{H}\equiv k$.
+\end{corollary}
+\begin{proof}
+Let $K_\Gamma$ denote the sectional curvature of $\Gamma$ with respect to the induced metric.
+By Gauss' equation
+\begin{equation}\label{eq:gauss}
+GK(p)=K_{\Gamma}(p)-K_\mathcal{H}(T_p \Gamma)\geq K_{\Gamma}(p)-k,
+\end{equation}
+where $T_p\Gamma$ denotes the tangent plane of $\Gamma$ at point $p$.
+ Since $\Gamma$ is simply connected, $\int_\Gamma K_\Gamma=4\pi$ by Gauss-Bonnet theorem. Thus 
+\begin{equation}\label{eq:tildeGG}
+\tilde\G(\Gamma)\geq \G(\Gamma)=4\pi- \int_\Gamma K_\mathcal{H}(T_p\Gamma)\geq 4\pi -k|\Gamma|.
+\end{equation}
+If equality holds in \eqref{eq:G2}, then equalities holds in \eqref{eq:tildeGG}.
+In particular $\tilde{\mathcal{G}}(\Gamma)= \mathcal{G}(\Gamma)$, which yields  $GK\geq 0$ everywhere. So $\mathrm{I\!I}_\Gamma$  is semidefinite (since $\Gamma$ is $2$-dimensional). Furthermore $\int_\Gamma K_\mathcal{H}(T_p\Gamma)= k|\Gamma|$, which yields that $K_\mathcal{H}(T_p\Gamma)=k$  for all $p\in\Gamma$. So, by Theorem \ref{thm:main}, $\Gamma$ bounds a convex body where $K_\mathcal{H}\equiv k$. 
+\end{proof}
+
+
+For $\Gamma$ strictly convex, the above result was established recently in \cite[Cor. 1.2]{ghomi-spruck-rigidity}. 
+For surfaces in $\mathbf{H}^3$, the weaker inequality $\tilde\G(\Gamma)\geq 4\pi +|\Gamma_0|$, where $\Gamma_0$ denotes the boundary of the convex hull of $\Gamma$, 
+had been known earlier \cite[Prop. 2]{langevin-solanes2003}.  For surfaces in $\R^3$, Corollary \ref{cor:main2} dates back to Chern-Lashof \cite{chern-lashof:tight1, chern-lashof:tight2}, who showed that $\tilde\G(\Gamma)\geq 2\pi(2+2g)$, where $g$ is the topological genus of $\Gamma$. In 1966 Willmore-Saleemi \cite{willmore-saleemi} conjectured that the Chern-Lashof inequality holds in $\mathcal{H}^3$;  however, Solanes \cite{solanes2007} constructed closed surfaces $\Gamma$ in $\mathbf{H}^3$ of every genus $g\geq 1$   with $\tilde{\mathcal{G}}(\Gamma)\approx 8\pi$. In these examples $|\Gamma|\approx2\pi(2g+2)$, which shows that \eqref{eq:G2} does not hold for $g\geq 1$. So  Corollary \ref{cor:main2} is topologically sharp.
+In 1985 Gromov \cite[p. 66]{ballmann-gromov-schroeder} proposed that for all closed surfaces $\Gamma$ in $\mathcal{H}^3$, $\tilde\G(\Gamma)\geq 4\pi$ with equality only if $\Gamma$ bounds a convex body where $K_\mathcal{H}\equiv 0$. Corollary \ref{cor:main2} settles this conjecture for $g=0$. For $g\geq 1$, we will show in Section \ref{sec:higher} that the inequality $\tilde\G(\Gamma)\geq 4\pi$ still holds; however, our methods do not seem to completely characterize the equality. 
+
+To prove Theorem \ref{thm:main} we first use the Gauss and Codazzi equations in Section \ref{sec:immersion} to show that $\Gamma$ is isometric to a hypersurface $\Gamma'$ in $\mathcal{S}^n(k)$ with the same second fundamental form. It  follows from characterizations of convex hypersurfaces due to do Carmo-Warner and Alexander that $\Gamma$ and $\Gamma'$ are both convex. Next in Section \ref{sec:schur} we prove a generalization of Schur's arm lemma for curves in $\mathcal{H}^n(k)$ via Reshetnyak’s majorization theorem. This result  is used to show in Section \ref{sec:proof} that the isometry $\Gamma\to\Gamma'$ is distance preserving in the ambient spaces. It follows  from the generalization of Kirszbraun's theorem by Lang-Schroeder that the mapping $\Gamma\to\Gamma'$ extends to an isometry of the convex bodies bounded by these surfaces, which completes the proof. These arguments also yield a proof of Theorem \ref{thm:main2} via some more results from \textup{CAT}(0) spaces.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Immersion into Space Forms}\label{sec:immersion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this section we use the fundamental theorem of Riemannian hypersurfaces \cites{spivak:v4,dajczer1990} to immerse $\Gamma$ in Theorems \ref{thm:main} and \ref{thm:main2}  into the space form $\mathcal{S}^n(k)$.
+Let $M^n$ denote an orientable Riemannian $n$-manifold with connection $\nabla$ and metric $\langle\cdot,\cdot\rangle$.
+The Riemann curvature operator of $M$ is given by
+$$
+R(X,Y)Z:=\nabla_X\nabla_Y Z-\nabla_Y\nabla_X Z-\nabla_{[X,Y]}Z,
+$$
+for vector fields $X$, $Y$, $Z$ of $M$. The sectional curvature of $M$ with respect to a plane $\sigma\subset T_p M$ is defined as
+$$
+K(\sigma)=K(X,Y):=\frac{\langle R(X,Y)Y,X\rangle}{|X\times Y|^2},
+$$
+where $X$, $Y$  are linearly independent vectors in $\sigma$,  and $|X\times Y|:=(\langle X,X\rangle\langle Y,Y\rangle-\langle X,Y\rangle^2)^{1/2}$ is the area of the parallelogram spanned by $X$ and $Y$. We say that $\Gamma\subset M$ is an \emph{immersed (resp. embedded) hypersurface} provided that there exists an $(n-1)$-manifold $\ol\Gamma$ and an immersion  (resp. embedding) $i\colon\ol\Gamma\to M$ with $i(\ol\Gamma)=\Gamma$. Let $\Gamma$ be an immersed hypersurface in $M$. If $\Gamma$ is orientable, there exists a global normal vector field $N$ along $\Gamma$. The \emph{shape operator} and the \emph{second fundamental form} of $\Gamma$ with respect to $N$ are given by
+$$
+A(X):=-\nabla_X(N),\quad\quad\text{and}\quad\quad \ff_\Gamma(X,Y):=\langle A(X),Y\rangle,
+$$
+respectively, for tangent vector fields $X$, $Y$ on $\Gamma$. Let $M'$ be a Riemannian manifold with $\dim(M')=\dim(M)$, $f\colon\Gamma\to M'$ be an immersion, and set $\Gamma':=f(\Gamma)$. We say $f$ is \emph{isometric}, or $\Gamma\overset{f}{\to}\Gamma'$ is an isometry, if $\langle X, Y \rangle_M= \langle df(X), df(Y) \rangle_{M'}$ for tangent vectors $X$, $Y$ of $\Gamma$,  where $df$ is the differential of $f$. We say $f$ \emph{preserves} $\ff_\Gamma$,  or $\Gamma$ and $\Gamma'$ have the same second fundamental form, if  $\ff_{\Gamma}(X,Y)=\ff_{\Gamma'}(df(X), df(Y))$, where $\ff_{\Gamma'}$ is the second fundamental form of $\Gamma'$ with respect to some normal vector field.
+
+\begin{proposition}\label{prop:embedding}
+Let $\Gamma$ be a simply connected $\C^{3}$  hypersurface immersed in  $M^n$, $n\geq 3$, and $p\in\Gamma$. Suppose that $K_M(\sigma)\leq k\leq 0$ on all planes $\sigma\subset T_p M$, and  $K_{M}(\sigma)\equiv k$ if $\sigma\subset T_p\Gamma$. Then there exists an isometric immersion $f\colon\Gamma\to \mathcal{S}^n(k)$ which preserves $\ff_\Gamma$.
+\end{proposition}
+
+ To establish the above result we first  show:
+
+
+\begin{lemma}\label{lem:RXY}
+Suppose there exists a point $p\in M$ and a plane $\sigma_0\subset T_pM$ such that $K_M(\sigma)\leq K_M(\sigma_0)\leq 0$ for all planes $\sigma\subset T_p M$.
+ Then for every pair of vectors $X$, $Y\in\sigma_0$, and orthogonal vector $N$ to $\sigma_0$, $R(X,Y)N=0$.
+\end{lemma}
+\begin{proof}
+It is enough to check that $\langle R(X,Y)N,Z\rangle=0$ for every vector $Z\in T_pM$ orthogonal to $\sigma$, since $\langle R(X,Y)N,N\rangle=0$.
+Let $X_t:=X+t N$ and $\sigma_t$ be the plane spanned by $X_t$ and $Y$. Then
+ $$
+\langle R(X_t,Y)Y,X_t\rangle=K(\sigma_t) |X_t\times Y|^2 \leq K(\sigma_0) |X\times Y|^2 = \langle R(X,Y)Y,X\rangle.
+$$ 
+ So $t=0$ is a critical point of $t\mapsto \langle R(X_t,Y)Y,X_t\rangle$ which yields
+\begin{align*}
+\langle R(X,Y)Y,N\rangle&=\frac{1}{2}\frac{d}{d t}\Big|_{t=0}\langle R(X_t,Y)Y,X_t\rangle=0.
+\end{align*}
+It follows that
+\begin{align}\label{eq:R}
+0=\langle R(X,Y+Z)(Y+Z),N\rangle
+=\langle R(X,Y)Z,N\rangle+\langle R(X,Z)Y,N\rangle.
+\end{align}
+Therefore
+$\langle R(X,Y)Z,N\rangle=\langle R(Z,X)Y,N\rangle.$
+Switching $X$ and $Y$ in \eqref{eq:R} we also obtain
+$\langle R(Y,X)Z,N\rangle=\langle R(Z,Y)X,N\rangle.$
+It follows that
+\[\langle R(X,Y)Z,N\rangle=\langle R(Y,Z)X,N\rangle=\langle R(Z,X)Y,N\rangle.\]
+By the first Bianchi identity, the sum of these three terms is zero, which completes the proof.
+\end{proof}
+
+Let $X$, $Y$, $Z$ be tangent vector fields and $N$ be a normal vector field on a hypersurface $\Gamma$ immersed in $M$.
+Furthermore let $\ol\nabla$ be the induced connection and $\ol R$ denote the Riemann curvature operator of $\Gamma$. The  covariant derivative of the shape operator $A$ is defined as
+$
+(\ol\nabla_XA)(Y):=\ol\nabla_X(A(Y))-A(\ol\nabla_XY).
+$
+Let $(\cdot)^\top$ denote the tangential component with respect to $\Gamma$, and set
+$
+(X\wedge Y)Z:=\langle Y, Z\rangle X-\langle X, Z\rangle Y.
+$
+The Gauss and Codazzi equations \cite[p. 24]{dajczer1990} for $\Gamma$ are 
+\begin{gather}\label{eq:gc}
+\ol R(X,Y)Z=(R(X,Y)Z)^\top+(A(X)\wedge A(Y))Z,\\
+R(X,Y)N=(\ol\nabla_YA)(X)-(\ol\nabla_XA)(Y).\notag
+\end{gather}
+Now we are ready to establish the main result of this section:
+
+
+\begin{proof}[Proof of Proposition \ref{prop:embedding}]
+Let $X$, $Y$, $Z$ be tangent vector fields and $N$ be a normal vector field on  $\Gamma$.
+By Lemma  \ref{lem:RXY}, $R(X,Y)N=0$ which yields $(R(X,Y)Z)^\top=R(X,Y)Z$. Furthermore, since $K_{\mathcal{H}}\equiv k$ on tangents planes of $\Gamma$, we have $R(X,Y)Z=k\,X\wedge Y$.
+Thus the Gauss and Codazzi equations \eqref{eq:gc} reduce to
+\begin{gather*}
+\ol R(X,Y)Z=k\, (X\wedge Y)Z+(A(X)\wedge A(Y))Z,\\
+(\ol\nabla_Y A)X=(\ol\nabla_X A)Y.
+\end{gather*}
+These are precisely the Gauss and Codazzi equations if $\Gamma$ was immersed in $\mathcal{S}^n(k)$  \cite[p. 24]{dajczer1990}. Thus by the fundamental theorem for hypersurfaces \cite[Thm. 2.1(i)]{dajczer1990} there exists an isometric immersion $\Gamma\to\mathcal{S}^n(k)$ which preserves $\ff_\Gamma$.
+\end{proof}
+
+\begin{note}\label{note:GC}
+The reason for the $\C^3$ assumption on $\Gamma$ in Proposition \ref{prop:embedding} is that this is the minimum regularity required to express the Gauss and Codazzi equations; however, the result should likely hold for $\C^2$ or even $\C^{1,1}$ hypersurfaces, where the Gauss and Codazzi equations hold in an integral or distributional sense. See \cites{hartman-wintner1950, mardare2003} where this approach has been carried out for surfaces in $\R^3$.
+\end{note}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Arm Lemma}\label{sec:schur}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Here we generalize the classical Schur's arm lemma for curves in $\R^n$ \cite{chern1967,sullivan2008} to curves in $\mathcal{H}^n$. A partial extension of Schur's result to $\textbf{H}^n$ had been studied earlier by Epstein \cite{epstein1985}, and the polygonal version, known as Cauchy's arm lemma \cite{aigner-ziegler1999}, has been extended to $\textup{CAT}(k)$ spaces \cite{akp2019}. A \emph{curve} is a continuous map  $\gamma\colon [a,b]\to \mathcal{X}$, where $\mathcal{X}$ is a metric space. We also use $\gamma$ to refer to its image $\gamma([a,b])$, and call $\gamma(a)$, $\gamma(b)$ the \emph{end points} of $\gamma$.  The distance between a pair of points $p$, $q\in \mathcal{X}$ is denoted by $|pq|$ or $|pq|_{\mathcal{X}}$. The \emph{length} of $\gamma$, denoted by $|\gamma|$, is the supremum of $\sum|\gamma(t_i)(t_{i+1})|$ over all partitions $a=t_0\leq \dots \leq t_N=b$ of $[a,b]$. If $|\gamma|=|\gamma(a)\gamma(b)|$ then $\gamma$ is a \emph{geodesic}. We say $\mathcal{X}$ is a \emph{geodesic space} if every pair of points $p$, $q\in \mathcal{X}$ can be joined by a geodesic. This geodesic is denoted by $pq$ if it is unique (up to reparametrization), as is the case in $\mathcal{H}^n(k)$. If $|\gamma|_{[t,s]}|=t-s$ for all $a\leq t\leq s\leq b$, we say that $\gamma$ is \emph{parametrized by arc length}. The \emph{chord} of $\gamma$ is the geodesic $\gamma(a)\gamma(b)$ connecting its end points. We say $\gamma\colon[a,b]\to \mathcal{H}^2$  is \emph{chord-convex} provided that $\gamma$  together with its chord forms a convex curve. 
+
+\begin{theorem}[Generalized Schur's Arm Lemma]\label{thm:schur}
+Let $\gamma_1\colon [0,\ell]\to\mathcal{S}^2(k)$, $\gamma_2\colon [0,\ell]\to\mathcal{H}^n(k)$ be $\C^4$ curves parameterized by arc length, and $\kappa_1$, $\kappa_2$ denote their geodesic curvatures  respectively.  Suppose that $\gamma_1$ is chord-convex, and $\kappa_2(t)\leq\kappa_1(t)$ for all $t\in[0,\ell]$. Then $|\gamma_2(0)\gamma_2(\ell)|\geq |\gamma_1(0)\gamma_1(\ell)|$. 
+\end{theorem}
+
+We need the following result of Reshetnyak from the theory of $\textup{CAT}(k)$ spaces; see \cite{bridson-haefliger1999,akp2019b,bbi2001} for basic notions and results in this area.
+A geodesic space $\mathcal{X}$ is $\textup{CAT}(k)$ if every (geodesic) triangle $\Delta$ in $\mathcal{X}$ is \emph{$k$-thin}, i.e., if $\Delta'\subset\mathcal{S}^2(k)$ is a triangle with side lengths equal to those of $\Delta$, then the distance between any pairs of points of $\Delta$ does not exceed that of the corresponding points in $\Delta'$. By Rauch's comparison theorem,  $\mathcal{H}^n(k)$ is a $\textup{CAT}(k)$ space. Let $\gamma\colon [0,\ell]\to \mathcal{X}$ be a curve parametrized by arc length, which is \emph{closed}, i.e., $\gamma(0)=\gamma(\ell)$. Let $\ol\gamma \colon [0,\ell]\to \mathcal{S}^2(k)$ be another closed arc length parametrized curve which is convex, bounding a convex body $C$. A \emph{nonexpanding} (or $1$-Lipschitz) map from a subset of a metric space into another is one which does not increase distances. We say that $\ol\gamma$ \emph{majorizes} $\gamma$, provided that there exists a nonexpanding map $f\colon C\to\mathcal{X}$ with $f\circ \ol\gamma=\gamma$, i.e., $f$ \emph{preserves the arc length} along $\ol\gamma$. We call $f$ the \emph{majorization map}. A curve is \emph{rectifiable} if it has finite length. 
+
+\begin{lemma}[Reshetnyak's Majorization Theorem \cites{akp2019,reshetnyak1968}]\label{lem:reshetnyak}
+Every closed rectifiable curve in a $\textup{CAT}(k)$ space, $k\leq 0$, is majorized by a closed convex curve in $\mathcal{S}^2(k)$.
+\end{lemma}
+
+The above lemma will allow us to replace $\gamma_2$ in Theorem \ref{thm:schur} by a curve in $\mathcal{S}^2(k)$. The other major component of the proof will be a polygonal approximation. For any pair of points $p$, $q\in\mathcal{H}^n$ let $\overset{\rightharpoonup}{pq}$ denote the unit tangent vector to $pq$ at $p$ which points toward $q$.  For any ordered triple of distinct points $p$, $o$, $q\in\mathcal{H}^n$,  define the angle
+$$
+\measuredangle(p,o,q):=\cos^{-1}\big(\big\langle \overset{\rightharpoonup}{op}, \overset{\rightharpoonup}{oq}\big\rangle\big).
+$$ 
+A curve $\gamma\colon [0,\ell]\to \mathcal{H}^n$ is \emph{polygonal} provided there are finitely many points $0:=t_0< \dots<t_{N+1}:=\ell$ such that $\gamma|_{[t_{i}, t_{i+1}]}$ is a geodesic parametrized by arc length, which we call an \emph{edge} of $\gamma$. Then $\gamma(t_i)$ form \emph{vertices} of $\gamma$ for $1\leq i\leq N$. The \emph{angle} of $\gamma$ at each vertex is defined as 
+$$
+\theta_\gamma(t_i):=\measuredangle\big(\gamma(t_{i-1}),\gamma(t_i),\gamma(t_{i+1})\big).
+$$
+The following observation is proved by an induction on the number of vertices just as in the classical proofs of Cauchy's  arm lemma in $\R^2$  \cites{aigner-ziegler1999,sabitov2004}.
+
+
+\begin{lemma}\label{prop:polyschur}
+Let $\gamma_1$, $\gamma_2\colon [0,\ell]\to\mathcal{S}^2(k)$ be chord-convex polygonal curves, with vertices at $t_i\in (0,\ell)$, $i=1,\dots, N$. Suppose that each edge of $\gamma_1$ is equal in length to the corresponding edge of $\gamma_2$, and $\theta_{\gamma_2}(t_i)\geq\theta_{\gamma_1}(t_i)$.  Then $|\gamma_2(0)\gamma_2(\ell)|\geq |\gamma_1(0)\gamma_1(\ell)|$.
+\end{lemma}
+
+
+The curvature of a polygonal curve is defined as $\pi-\theta(t_i)$ at its vertices. Thus the above lemma establishes the polygonal version of Theorem \ref{thm:schur} for curves in $\mathcal{S}^2(k)$. Next we need the following regularity observation:
+
+\begin{lemma}\label{lem:C1}
+Let $\gamma\colon[a,b]\to\mathcal{H}^n(k)$ be a differentiable curve parametrized by arclength, and $\ol\gamma\colon [a,b]\to\mathcal{S}^2(k)$ be another arclength parametrized curve which is chord-convex. Suppose that $|\ol\gamma(t)\ol\gamma(s)|\geq |\gamma(t)\gamma(s)|$ for all $t$, $s\in[a,b]$.
+Then $\ol\gamma$ is $\C^1$ on $(a,b)$.
+\end{lemma}
+\begin{proof}
+Assume $0\in(a,b)$. Let $\Delta\subset\R^2$ be a triangle with sides of length $|\gamma(0)\gamma(-t)|$, $|\gamma(0)\gamma(t)|$, and angle $\theta(t):=\measuredangle(\gamma(-t),\gamma(0),\gamma(t))$ in between. Since $K_\mathcal{H}\leq 0$, the third side of $\Delta$ is not longer than $\gamma(-t)\gamma(t)$, and since $\gamma$ is differentiable, $\theta(t)\to\pi$ as $t\to 0$. Then, by law of cosines, the limit of $f(t):=|\gamma(-t)\gamma(+t)|/(2t)$ as $t\to 0$ is $\geq 1$. But $f(t)\leq |\gamma|_{[-t,t]}|/(2t)= 1$. So $f(t)\to 1$. It follows that $|\ol\gamma(-t)\ol\gamma(+t)|/(2t)\to1$ as well. So $\ol\gamma$ has a unique support line, or complete geodesic, passsing through $\gamma(0)$, which yields that
+$\ol\gamma$ is $\C^1$; see  \cite[Thm. 1.2]{ghomi-howard2014} or \cite[Thm. 1.5.4]{schneider2014} for $k=0$. For $k\neq 0$, we may identify $\mathcal{S}^2(k)$ with the Beltrami model for $\textbf{H}^2$, where convex sets are convex in $\R^2$.
+\end{proof}
+
+
+
+So if a $\C^1$ curve $\gamma$ in $\mathcal{H}^n(k)$ is majorized by a convex curve $\ol\gamma$ in $\mathcal{S}^2(k)$, then $\ol\gamma$ is $\C^1$ as well; however, in general $\ol\gamma$ may not be $\C^2$ even when $\gamma$ is $\C^\infty$. Thus curvature of $\ol\gamma$ can be discussed only in a generalized sense, as we describe next. Let $\gamma$ be a curve in $\mathcal{H}^n(k)$ and  $o$ be an \emph{interior point} of $\gamma$, i.e., not an end point. Let $p$, $q$ be a pair of points of $\gamma$ which lie on either side of $o$, and $p'$, $q'$, $o'\in\mathcal{S}^2(k)$ be points such that the triangles $\triangle p'o'q'$ and $\triangle poq$ have equal side lengths. There exists a unique curve of constant curvature $\alpha(p,o,q)$ in $\mathcal{S}^2(k)$ which circumscribes $\triangle p'o'q'$. The \emph{(upper) osculating curvature} of $\gamma$ at $o$, is defined  as
+$$
+osc\,\kappa(o):=\limsup_{p,q\to o} \alpha(p,o,q).
+$$
+There exists also a curve of constant curvature $\beta(p,q)$ in $\mathcal{S}^2(k)$ passing through $p'$, $q'$ such that the arclength distance between $p'$ and $q'$  is equal to the arclength distance between $p$ and $q$. The \emph{(upper) chord curvature} of $\gamma$ at $o$ is defined as 
+$$
+chd\,\kappa(o):=\limsup_{p,q\to o} \beta(p,q).
+$$
+If $\gamma$ is $\C^4$, then $osc\,\kappa=chd\,\kappa=\kappa$, where $\kappa$
+is the standard geodesic curvature of $\gamma$ \cite{alexander-bishop1996}. For $\delta>0$, let $p(\delta)$, $q(\delta)$ be the first points on either side of $o$ where $\gamma$ intersects a circle of radius $\delta$ centered at $o$. So $|p(\delta)o|=|q(\delta)o|=\delta$. Then we define
+$$
+\theta_{\gamma}(o,\delta):=\measuredangle \big(p(\delta),o,q(\delta)\big).
+$$
+
+\begin{comment}
+\begin{lemma}\label{lem:angle}
+Let $\gamma_1$, $\gamma_2\colon[a,b]\to\mathcal{S}^2(k)$ be simple curves. Suppose that  $\gamma_1$ is $\C^2$, and ${osc\, \kappa_2}(t)< \kappa_1(t)$ for all $t\in (a,b)$. Fix $\epsilon>0$ and for $\delta>0$ let $t_\pm \in [a+\epsilon, b-\epsilon]$ be points such that $t_-< t <t_+$ and $|\gamma_i(t_-)\gamma_i(t)|=|\gamma_i(t_+)\gamma_i(t)|=\delta$. Set $\theta_i(t,\delta):=\measuredangle(\gamma_i(t_-),\gamma_i(t),\gamma_i(t_+))$. 
+There exists $\delta_0>0$ such that $\theta_2(t,\delta)\geq\theta_1(t,\delta)$ for all $0<\delta<\delta_0$ and $t\in [a+\epsilon,b-\epsilon]$.
+\end{lemma}
+\begin{proof}
+Since $\gamma_1$, $\gamma_2$ are simple, we may choose $\delta_1>0$ sufficiently small so that $t_{\pm}\in[a, b]$, for all $t\in[a',b']:=[a+\epsilon, b-\epsilon]$, and $0<\delta\leq\delta_1$. For $t\in[a', b']$ and $0<\delta\leq\delta_1$, 
+let $\alpha_i(t,\delta)$ be the curvature of the curve of constant curvature in $\mathcal{S}^2(k)$ circumscribing  $\triangle \gamma_i(t_-)\gamma_i(t)\gamma_i(t_+)$.
+Define $f\colon [a',b']\times [0,\delta_1]\to\R$ by $f(t,\delta):=\alpha_1(t,\delta)-\alpha_2(t,\delta)$, in case $\delta>0$, and $f(t,0):=\kappa_1(t)- {osc\, \kappa_2}(t)$. Note that
+$$
+\liminf_{\delta\to 0} f(t,\delta)=\kappa_1(t_0)- \limsup_{\delta\to 0}\alpha_2(t,\delta)\geq \kappa_1(t_0)- {osc\, \kappa_2}(t_0)=f(t,0)>0.
+$$
+Thus for every $t\in[a', b']$ there exists $\delta_0(t)>0$ such that $f(t,\delta)>0$ for all $\delta\leq\delta_0(t)$. Let $\ol\delta_0(t)$ be the supremum of all such numbers $\delta_0(t)$. Note that if $f(t,\delta)>0$ for some $t\in [a', b']$, then $f(t',\delta)>0$ for $t'$ near $t$ in $[a', b']$, because $\alpha_1$ and $\alpha_2$ are continuous. It follows that $\ol\delta_0(t)$ is lower semicontinuous. Since $\ol\delta_0(t)>0$, it follows that $\ol\delta_0(t)\geq\delta_0$ for some $\delta_0>0$, which we claim is the desired constant.
+
+If $k=0$, then an elementary computation yields that $\theta_i(\delta)=2\tan^{-1}(1/(\alpha_i(\delta)\delta))$. If $k\neq 0$, then after a rescaling we may assume that $k=-1$ or identify $\mathcal{S}^2(k)$ with the hyperbolic plane $\textbf{H}^2$. In the Poincare disk model for $\textbf{H}^2$ a curve of constant curvature may be represented as an arc of a circle, or line segment in $\R^2$ which passes through the origin. The curvature of a curve at the origin of the Poincare disk is twice its curvature in $\R^2$. Thus $\theta_i(\delta)=2\tan^{-1}(2/(\alpha_i(\delta)\delta))$. In either case, since $\alpha_1(\delta)>\alpha_2(\delta)$, we obtain
+$\theta_1(\delta)<\theta_2(\delta)$.
+\end{proof}
+\end{comment}
+
+\begin{lemma}\label{lem:angle}
+Let $\gamma_i$, $i=1$, $2$, be curves in $\mathcal{S}^2(k)$, and $o_i$ be interior points of $\gamma_i$. Suppose that  $\gamma_1$ is $\C^2$, and ${osc\, \kappa_2}(o_2)< \kappa_1(o_1)$. Then there exists $\delta_0>0$ such that $\theta_{\gamma_2}(o_2,\delta)>\theta_{\gamma_1}(o_1,\delta)$ for all $\delta<\delta_0$.
+\end{lemma}
+\begin{proof}
+Let $\alpha_i(\delta)$ be the curvature of the curve of constant curvature circumscribing $\triangle p_i(\delta)o_iq_i(\delta)$.
+As $\delta\to0$, $\alpha_1(\delta)\to\kappa_1(o_1)> {osc\, \kappa_2}(o_2)$, and $\limsup\alpha_2(\delta)\leq {osc\, \kappa_2}(o_2)$. So
+$
+\alpha_1(\delta)>\alpha_2(\delta),
+$
+for $\delta$ small. This completes the proof since $\theta_i(\delta):=\theta_{\gamma_i}(o_i,\delta)$ is inversely proportional to $\alpha_i(\delta)$. Indeed
+if $k=0$, a simple computation shows $\theta_i(\delta)=2\tan^{-1}(1/(\alpha_i(\delta)\delta))$. If $k\neq 0$, we may identify $\mathcal{S}^2(k)$ with $\textbf{H}^2$ after rescaling. In the Poincare disk model, a curve of constant curvature may be represented as an arc of a circle or line passing through the origin $o$. The curvature of a curve in the Poincare disk at $o$ is twice its curvature in $\R^2$. Thus $\theta_i(\delta)=2\tan^{-1}(2/(\alpha_i(\delta)\delta))$. 
+\end{proof}
+
+
+\begin{comment}
+\begin{proof}
+Since $\gamma_i$ is $\C^1$, $p_i(\delta)$ and $q_i(\delta)$ are uniquely determined, assuming $\delta$ is sufficiently small. Then $\theta_i(\delta):=\measuredangle(p_i(\delta),o_i,q_i(\delta))$ is well-defined. Furthermore, there exists a triangle $p_i'o_i'q_i'$ in $\mathcal{S}^2(k)$, unique up to translation, with side lengths equal to those of $p_io_iq_i$ ($p_1'=p_1, q_1'=q_1, o_1'=o_1$). Let $c_i(\delta)$ denote the curvature of the curve of constant
+curvature which passes through the vertices of $p_i'o_i'q_i'$. Since $\gamma_i$ is $\C^4$, the limit of $c_i(\delta)$ exists and is equal to $\kappa_i(o_i)$ as $\delta\to 0$  \cite{alexander-bishop1996}. So for $\delta$ sufficiently small $c_2(\delta)<c_1(\delta)$. Let $\theta_i'(\delta)=\measuredangle(p_i',o_i',q_i')$. If $k=0$, then an elementary computation yields that $\theta_i'(\delta)=2\tan^{-1}(1/(c_i(\delta)\delta))$. If $k\neq 0$, then after a rescaling we may assume that $k=-1$ or identify $\mathcal{S}^2(k)$ with the hyperbolic plane $\textbf{H}^2$. In the Poincare disk model for $\textbf{H}^2$ a curve of constant curvature may be represented as an arc of a circle, or line segment in $\R^2$ which passes through the origin. The curvature of a curve at the origin of the Poincare disk is twice its curvature in $\R^2$. Thus $\theta_i'(\delta)=2\tan^{-1}(2/(c_i(\delta)\delta))$. So we conclude that $\theta_2'(\delta)>\theta_1'(\delta)=\theta_1(\delta)$, and this strict inequality holds in the limit as well after we devide by $\delta$. But $\theta_2(\delta)$ and $\theta_2'(\delta)$ have the same limit as $\delta\to 0$. Thus $\theta_2(\delta)>\theta_1(\delta)$ for small $\delta$.
+\end{proof}
+\end{comment}
+
+Now we are ready to establish the main result of this section:
+
+\begin{proof}[Proof of Theorem \ref{thm:schur}]
+Join  $\gamma_2$ to its chord to obtain a closed curve. By Reshetnyak's theorem (Lemma \ref{lem:reshetnyak}) this curve is majorized by  a closed curve in $\mathcal{S}^2(k)$. The majorizing curve consists of a chord convex curve, say $\ol\gamma_2$, and its own chord, which has the same length as the chord of $\gamma_2$. Note that  $chd\,\ol\kappa_2\leq chd\,\kappa_2$ on $(0,\ell)$. Since $\gamma_2$ is $\C^4$, $chd\,\kappa_2=\kappa_2$ \cite{alexander-bishop1996}. So $chd\,\ol\kappa_2\leq \kappa_2$. Consequently $osc\,\ol\kappa_2\leq \kappa_2$ on $(0,\ell)$, by \cite[Thm. 3.1]{alexander-bishop1996}. After replacing $\gamma_2$ by $\ol\gamma_2$, we may assume that $\gamma_2\subset\mathcal{S}^2(k)$ and ${osc\,\kappa_2}\leq\kappa_1$ on $(0,\ell)$. Note that $\gamma_2$ is now only $\C^1$.
+Obviously it suffices to show that $|\gamma_2(\epsilon)\gamma_2(\ell-\epsilon)|\geq |\gamma_1(\epsilon)\gamma_1(\ell-\epsilon)|$ for every $\epsilon>0$. Thus after replacing $\gamma_1$, $\gamma_2$ by shorter curves we may assume that $osc\,\kappa_2$ is defined at the end points of $\gamma_2$ with respect to some extension, and $osc\,\kappa_2\leq \kappa_1$ on $[0,\ell]$. 
+
+
+First we assume that ${osc\,\kappa_2}<\kappa_1$ on $[0,\ell]$. Since $\gamma_i$, $i=1$, $2$, are $\C^1$ there exist, for large $N$, oriented polygonal curves $\pi_i^N$  with $N-1$ edges of length $\ell/N$ such that the initial point of $\pi_i^N$ coincides with $\gamma_i(0)$, and all the vertices of $\pi_i^N$ lie on $\gamma_i$. Then the last vertex of $\pi_i^N$ converges to $\gamma_i(\ell)$ as $N\to\infty$. Note that the angle of $\pi_i^N$ at a vertex $o_i$ is given by $\theta_{\gamma_i}(o_i,\ell/N)$.
+Since ${osc\,\kappa_2}<\kappa_1={osc\,\kappa_1}$ on $[0,\ell]$,  angles of $\pi_2^N$ at its vertices will not be smaller than the corresponding angles of $\pi_1^N$ for large $N$. Otherwise, there exists for each $N$ vertices $o_i^N$ of $\pi_i^N$ with $\theta_{\gamma_2}(o_2^N,\ell/N)<\theta_{\gamma_1}(o_1^N,\ell/N)$.  Passing to subsequences, we may assume that $o_i^N$  converge to $\ol o_i$ in $\gamma_i$. But, by Lemma \ref{lem:angle}, $\theta_{\gamma_2}(\ol o_2,\delta)>\theta_{\gamma_1}(\ol o_1,\delta)$ for $\delta$ sufficiently small. This yields a contradiction because  $\gamma_i$ are $\C^1$, by Lemma \ref{lem:C1}, and so $\theta_{\gamma_i}$ depend continuously on $o_i$ and $\delta$. Now by Lemma \ref{prop:polyschur} the distance between end points of $\pi_2^N$ is not smaller than those of $\pi_1^N$, for $N$ large. Letting $N\to\infty$, we obtain $|\gamma_2(0)\gamma_2(\ell)|\geq |\gamma_1(0)\gamma_1(\ell)|$ as desired.
+
+
+Next we consider the case ${osc\,\kappa_2}\leq \kappa_1$. Let $L\subset\mathcal{S}^2(k)$ be the complete geodesic which contains the chord of $\gamma_1$. If $\gamma_1$ meets $L$ transversely at both end points, then $\gamma_1$ remains chord-convex after a small perturbation. In particular we may replace $\gamma_1$ with the curve $\gamma_1^\epsilon$ in $\mathcal{S}^2(k)$ with curvature $\kappa_1+\epsilon$, for $\epsilon>0$ ($\gamma_1^\epsilon$ exists due to the equation for geodesic curvature and basic ODE theory). Then, as discussed above, $|\gamma_2^\epsilon(0)\gamma_2^\epsilon(\ell)|\geq |\gamma_1^\epsilon(0)\gamma_1^\epsilon(\ell)|$ and letting $\epsilon\to 0$ completes the proof. 
+
+So we may assume that $\gamma_1$ is tangent to $L$ at one of its end points, say $\gamma_1(\ell)$. Suppose first  that $\gamma_1([\ell-{\epsilon}, \ell])$ does not lie on $L$ for any $\epsilon>0$. Then $\gamma_1([0, \ell-\epsilon])$  is a chord-convex curve which is transversal at $\gamma_1(\ell-\epsilon)$ to the geodesic passing through its end points.
+So by the discussion in the last paragraph $|\gamma_2(0)\gamma_2(\ell-\epsilon)|\geq |\gamma_1(0)\gamma_1(\ell-\epsilon)|$ and letting $\epsilon\to 0$ completes the proof. 
+
+
+Finally it remains to consider the case where  a segment of $\gamma_1$ near $\ell$ lies on $L$. Let $\ell'\in[0,\ell]$ be 
+ the smallest number such that $\gamma_1$ is tangent to $L$ at  $\ell'$. By the previous paragraph, 
+$
+ |\gamma_1(0)\gamma_1(\ell')|\leq |\gamma_2(0)\gamma_2(\ell')|.
+$
+Furthermore, since $\gamma_1([\ell',\ell])$ is a geodesic by assumption, and $\gamma_i$ are parametrized by arc length, 
+$
+|\gamma_2(\ell')\gamma_2(\ell)|\leq \ell-\ell'=|\gamma_1(\ell')\gamma_1(\ell)|.
+$
+Finally, since $\gamma_1$ is chord-convex, $\gamma_1(\ell)$  lies between $\gamma_1(0)$ and $\gamma_1(\ell')$ on $L$. Thus
+\begin{eqnarray*}
+|\gamma_1(0)\gamma_1(\ell)| &=& |\gamma_1(0)\gamma_1(\ell')|-|\gamma_1(\ell')\gamma_1(\ell)|\\
+&\leq& |\gamma_2(0)\gamma_2(\ell')|-|\gamma_2(\ell')\gamma_2(\ell)| \,\;\leq\;\, |\gamma_2(0)\gamma_2(\ell)|,
+\end{eqnarray*}
+which completes the proof.
+\end{proof}
+
+\begin{note}\label{note:schur}
+As is the case in $\R^n$ \cite{sullivan2008}, Theorem \ref{thm:schur} can likely be generalized to $\C^{1,1}$ curves, where the pointwise condition $\kappa_2(t)\leq\kappa_1(t)$ is replaced by $\int\kappa_2\le\int\kappa_1$ on every subinterval of $[0,\ell]$.
+\end{note}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proofs of Theorems \ref{thm:main} and \ref{thm:main2}}\label{sec:proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Here we employ some more results from the theory of $\textup{CAT}(0)$ spaces  to obtain our main theorems. In particular, we need the following theorem of Lang-Schroeder:
+
+\begin{lemma}[Generalized Kirszbraun's Theorem \cite{lang-schroeder1997}]\label{lem:lang-schroeder}
+Let $\mathcal{X}$ be a $\textup{CAT}(0)$ space, $Y$ be a complete geodesic metric space, and $S\subset \mathcal{X}$ be any subset. Then every nonexpanding map $f\colon S\to Y$ extends to a nonexpanding map $\ol f\colon \mathcal{X}\to Y$.
+\end{lemma}
+
+ Let $\mathcal{X}$, $\mathcal{X}'$ be metric spaces and $S\subset \mathcal{X}$, $S'\subset \mathcal{X}'$. We say $f\colon S\to S'$ is \emph{distance-preserving} (in the ambient spaces) provided that $|f(p)f(q)|_{\mathcal{X}'}=|pq|_{\mathcal{X}}$ for all $p$, $q\in\mathcal{X}$. Using the above lemma we show:
+
+\begin{lemma}\label{lem:C}
+Let $\mathcal{H}$,  $\mathcal{H}'$ be Cartan-Hadamard manifolds, and $C\subset \mathcal{H}$, $C'\subset \mathcal{H}'$  be compact convex bodies. Then every distance-preserving map $f\colon\partial C\to  \partial C'$ extends to a distance-preserving map  $\ol f\colon C\to C'$. 
+\end{lemma}
+\begin{proof}
+Since it is a convex subset of a $\textup{CAT}(0)$ space, $C$ is  a $\textup{CAT}(0)$ space. So,
+by Lemma \ref{lem:lang-schroeder}, $f$ extends to a nonexpanding map $\ol f\colon C\to \mathcal{H}'$, which we claim is the desired map.
+Let $x_i$, $i=1$, $2$, be distinct points of $C$. Since  $\mathcal{H}$ is a Cartan-Hadamard manifold and $C$ is compact, the geodesic $x_1x_2$ may be extended from each of its points until it meets $\partial C$ at points $y_1$, $y_2$ respectively. 
+ Let $x_i':=\ol f(x_i)$, $y_i'=\ol f(y_i)$ and $(y_1y_2)':=\ol f(y_1y_2)$.  Then $|y_1'y_2'|\leq |(y_1y_2)'|\leq |y_1y_2|=|y_1'y_2'|$. Thus $|(y_1y_2)'|=|y_1'y_2'|$ which yields that $(y_1y_2)'=y_1'y_2'$. In particular $x'$ lies on $y_1'y_2'$. Consequently $|y_1x_i|+|x_iy_2|=|y_1y_2|=|y_1'y_2'|=|y_1' x_i'|+|x_i'y_2'|$. It follows that
+$|y_1 x_i|=|y_1' x_i'|$ and $|x_iy_2|=|x_i'y_2'|$. So $|x_1x_2|=|y_1y_2|-|y_1x_1|-|y_2x_2|=|y_1'y_2'|-|y_1'x_1'|-|y_2'x_2'|=|x_1'x_2'|$. Thus $\ol f\colon C\to \ol f(C)$ is distance-preserving. Also note since $(y_1y_2)'=y_1'y_2'$ and $C'$ is convex, $\ol f(C)\subset C'$. It remains only to check that $\ol f$ is onto. Given $x'\in C'$, let $y_1'y_2'$ be a geodesic passing through $x'$, with $y_1'$, $y_2'\in\partial C'$. Let $y_i:=f^{-1}(y_i')$. Then $(y_1y_2)'=y_1'y_2'$ as shown earlier. So $x'\in\ol f(C)$, which completes the proof.
+\end{proof}
+
+Now we are ready to establish the main results of this work:
+
+\begin{proof}[Proof of Theorem \ref{thm:main}]
+Since $\Gamma$ is compact, there exists a point $p\in\Gamma$ where $\ff_\Gamma$ is definite. After replacing $\Gamma$ by its universal cover we may assume that $\Gamma$ is simply connected. 
+We may choose a normal vector field on $\Gamma$ with respect to which $\ff_\Gamma$ is positive definite at $p$. By Proposition \ref{prop:embedding}, $\Gamma$ is isometric to a complete immersed hypersurface $\Gamma'$ in $\mathcal{S}^n(k)$ with the same second fundamental form. In particular, $\Gamma'$ is infinitesimally convex.   By assumption, either $k=0$ or $\Gamma$ is compact. In the first case $\Gamma'$ is convex by 
+a theorem of Sacksteder \cite{sacksteder1960}, and in the second case $\Gamma'$ is convex by do Carmo-Warner's result \cite[Sec. 5]{docarmo&warner}. Thus $\ff_{\Gamma'}$ is positive semidefinite, which yields that $\ff_{\Gamma}$ is positive semidefinite as well. Consequently, by a theorem of Alexander \cite{alexander1977}, $\Gamma$ is convex.
+
+
+Let $C$, $C'$ be the convex bodies bounded by $\Gamma$, $\Gamma'$ respectively. We are going to show that $C$ and $C'$ are isometric. 
+Let $f\colon\Gamma\to\Gamma'$ be the isometry furnished by Proposition \ref{prop:embedding},  and for any point $x\in\Gamma$ set $x':=f(x)$.
+By Lemma  \ref{lem:C} it suffices to check that for every pair of points $x$, $y\in\Gamma$, 
+$
+|xy|_C= |x'y'|_{C'}.
+$
+
+Let $\Pi$ be a totally geodesic surface in $\mathcal{S}^n(k)$ containing $x'y'$.  We may assume that $\Pi$ is transversal to $\Gamma$. So $\Pi\cap\Gamma$ is a convex curve in $\Pi$. Let $\arc{x'y'}$ be one of the arcs connecting $x'$, $y'$ in $\Pi\cap\Gamma'$, and $\arc{xy}:=f^{-1}(\arc{x'y'})$ be the corresponding arc in $\Gamma$. Since $f\colon\Gamma\to\Gamma'$ is an isometry which preserves the second fundamental form, $f\colon \arc{xy}\to\arc{x'y'}$ preserves both the arc length and geodesic curvature of $\arc{xy}$.  Since $\Pi$ is totally geodesic, the geodesic curvature of $\arc{x'y'}$ in $\mathcal{S}^n(k)$ is the same as its geodesic curvature in $\Pi$, which is isometric to $\mathcal{S}^2(k)$. Thus by Theorem \ref{thm:schur} (the generalized arm lemma) $|xy|_C=|x'y'|_\Pi$. Since $\Pi$ is totally geodesic, $|x'y'|_\Pi=|x'y'|_{\mathcal{S}^n(k)}=|x'y'|_{C'}$.
+So we conclude that  $|xy|_C\geq |x'y'|_{C'}$. 
+
+Let $\gamma':=\Pi\cap\Gamma'$, and $\gamma:=f^{-1}(\gamma')$ be the corresponding curve in $\Gamma$. Let $A\subset\Pi$ be the convex body with $\partial A=\gamma$.
+By Reshetnyak's theorem (Lemma \ref{lem:reshetnyak}), there exists a convex body $B\subset \Pi$ and a nonexpanding map  $h\colon \partial B\to \gamma$ which is arc length preserving. Then $f\circ h\colon \partial B\to\partial A$ is a nonexpanding map which again preserves arc lengths. By Lemma \ref{lem:C},   $f\circ h$ extends to a distance-preserving map $\ol{f\circ h}\colon B\to A$. Since $B$ has interior points, $\ol{f\circ h}$ is the restriction of an isometry $i\colon \Pi\to\Pi$. So, after replacing $B$ with $i^{-1}(B)$, we 
+may assume that $B=A$ and $\ol{f\circ h}$ is the identity map on $A$. In particular $f\circ h$ is the identity map on $\gamma'$, or $f^{-1}|_{\gamma'}=h$. Thus $f^{-1}|_{\gamma'}$ is nonexpanding, which yields that $|xy|_C\leq |x'y'|_{C'}$ and completes the proof. 
+\end{proof}
+
+Next, to prove Theorem \ref{thm:main2}, we need an intrinsic version of Lemma \ref{lem:C}. Let $M$ be a manifold with boundary $\Gamma$. We say that $\Gamma$ is \emph{locally convex} provided that $\ff_\Gamma$ is positive semidefinite with respect to the outward normal.
+
+\begin{lemma}\label{lem:C2}
+Let $M$, $M'$ be compact simply connected nonpositively curved manifolds with locally convex boundaries $\Gamma$, $\Gamma'$. Then every distance-preserving map $f\colon \Gamma\to\Gamma'$ extends to a distance-preserving map $\ol  f \colon M\to M'$.
+\end{lemma}
+\begin{proof}
+By a theorem of Alexander-Berg-Bishop \cite{Alexander-Berg-Bishop1993} \cite[Thm. 4.91]{akp2019b}, small  triangles in $M$ are $0$-thin, which means that $M$ is locally a $\textup{CAT}(0)$ space. Since $M$ is simply connected, it follows from the generalized Cartan-Hadamard theorem  \cite{alexander-bishop1990,bridson-haefliger1999,bbi2001} that $M$ is a $\textup{CAT}(0)$ space.  Consequently every geodesic $x_1x_2$ in $M$ can be extended along each of its end points until it meets $\Gamma$. Indeed let $o$ be a point is the relative interior of $x_1x_2$. For every point $y\in\Gamma$ consider the geodesic $oy$. Suppose towards a contradiction that these geodesics miss one of the end points of $x_1x_2$, say $x_1$. For $0\leq t\leq 1$ and $y\in M$ let $y_t$ be the point on $oy$ with $|oy_t|=t|oy|$. Then the mapping $(t,y)\mapsto y_t$ contracts $M$ to $o$ in the complement of $x_1$, which is not possible. Similarly, geodesics in $M'$ may be extended until they meet $\Gamma'$. The rest of the argument proceeds just as in Lemma \ref{lem:C}.
+\end{proof}
+
+Now we are ready to establish the intrinsic version of Theorem \ref{thm:main}:
+
+\begin{proof}[Proof of Theorem \ref{thm:main2}]
+Just as we argued in the proof of Theorem \ref{thm:main}, there exits an isometric embedding $f\colon\Gamma\to\Gamma'\subset\mathcal{S}^n(k)$ with the same fundamental form, where $\Gamma'$ bounds a compact convex body $M'$. By Lemma \ref{lem:lang-schroeder}  (generalized Kirszbraun's theorem), $f^{-1}\colon\Gamma'\to\Gamma$ extends to a continuous map $M'\to M$. Since $M'$ is homeomorphic to a ball, it follows that $M$ is simply connected. Furthermore, since $\Gamma'$ is convex, $\ff_{\Gamma'}$ is positive semidefinite with respect to the outward normal;  therefore, so is $\ff_\Gamma$. Thus, by Lemma \ref{lem:C2}, $f$ may be extended to an isometry $M\to M'$, which completes the proof.
+\end{proof}
+
+\begin{note}
+An alternative argument for proving Theorem \ref{thm:main2} would proceed as follows. Since $f$ preserves $\ff_\Gamma$, gluing the closure of 
+$\mathcal{S}^n(k)\setminus M'$ to $M$ along $\Gamma$ yields a $\textup{CAT}(0)$ space $\ol M$ by a result of Kosovskii \cite{kosovskii2004}. Since, as we argued above, $\ff_\Gamma$ is positive semidefinite, geodesics in $\ol M$ which are tangent to $\Gamma$ cannot penetrate the interior of $M$ \cite{bishop1974}. It follows that  $M$ is a convex body in $\ol M$. Now the proof of Lemma \ref{lem:C} goes through to yield an isometry $\ol f\colon M\to M'$.
+\end{note}
+
+
+
+\begin{note}
+As the above arguments reveal, the reason for the assumption $k=0$ in Theorems \ref{thm:main} and \ref{thm:main2},  when $\pi_1(\Gamma)$ is not finite, is so that we can apply Sacksteder's theorem \cite{sacksteder1960}, which holds only in $\R^n$. Indeed there are complete surfaces in $\mathbf{H}^3$ which are infinitesimally convex and have positive definite second fundamental form at one point, but are not convex \cite[p. 84]{spivak:v4}.
+\end{note}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Total Absolute Curvature}\label{sec:higher}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this section we investigate analogues of Corollary \ref{cor:main2} for surfaces of genus $g\geq 1$. Recall that $\Gamma_0$ denotes the boundary of the convex hull of $\Gamma$.
+
+\begin{proposition}\label{prop:high-g}
+Let $\Gamma$ be a closed $\C^{1,1}$ surface immersed in $\mathcal{H}^3(k)$. Then
+\begin{equation}\label{eq:higher}
+\tilde{\mathcal{G}}(\Gamma)\geq 4\pi -k|\Gamma_0|,
+\end{equation}
+with equality only if $K_{\mathcal{H}}\equiv k$ on support planes of $\Gamma_0$, and $GK_\Gamma\geq 0$ everywhere.
+\end{proposition}
+\begin{proof}
+Let $\Gamma_0^\epsilon$ denote the outer parallel surface of $\Gamma_0$ at distance $\epsilon>0$. Then $\Gamma_0^\epsilon$ is $\C^{1,1}$ \cite[Lem. 2.6]{ghomi-spruck2022} and thus by Rademacher's theorem its total curvature $\mathcal{G}(\Gamma_0^\epsilon)$ is well-defined. The total curvature of $\Gamma_0$ is defined as
+$$
+\mathcal{G}(\Gamma_0)
+:=
+\lim_{\epsilon\to 0}\mathcal{G}(\Gamma_0^\epsilon).
+$$ 
+It is known that $\epsilon\mapsto \mathcal{G}(\Gamma_0^\epsilon)$ is a decreasing function  \cite[Sec. 6]{ghomi-spruck2022}. 
+Furthermore $\mathcal{G}(\Gamma_0^\epsilon)\geq 0$ since $\Gamma_0^\epsilon$ is convex.
+Thus $\mathcal{G}(\Gamma_0)$ exists.
+By Gauss' equation \eqref{eq:gauss} and Gauss-Bonnet theorem,
+\begin{equation}\label{eq:G}
+\mathcal{G}(\Gamma_0^\epsilon)=\int_\Gamma K_{\Gamma_0^\epsilon}-\int_{\Gamma_0^\epsilon}K_{\mathcal{H}}
+\geq
+4\pi -k|\Gamma_0^\epsilon|
+\geq
+4\pi -k|\Gamma_0|.
+\end{equation}
+So $\mathcal{G}(\Gamma_0)\geq 4\pi-k|\Gamma_0|$.
+Let $\mathcal{G}_+(\Gamma):=\int_{\Gamma_+}GK$, where $\Gamma_+\subset\Gamma$ is the region with $GK_\Gamma\geq 0$. Then we have
+\begin{equation}\label{eq:tildeGK}
+\tilde{\mathcal{G}}(\Gamma)\geq\mathcal{G}_+(\Gamma)\geq\mathcal{G}(\Gamma\cap\Gamma_0)
+=
+\mathcal{G}(\Gamma_0)
+\geq 
+4\pi-k|\Gamma_0|,
+\end{equation}
+where the equality above is due to Kleiner \cite{kleiner1992}, see  \cite[Prop. 6.6]{ghomi-spruck2022}.  
+If  equality holds in \eqref{eq:higher}, then $\mathcal{G}(\Gamma_0^\epsilon)\to 4\pi-k|\Gamma_0|$, as $\epsilon\to 0$. So \eqref{eq:G} implies that $\int_{\Gamma_0^\epsilon}K_{\mathcal{H}}\to k|\Gamma_0|$. Since $K_\mathcal{H}\leq k$, it follows that
+$K_{\mathcal{H}}(T_p\Gamma_0^\epsilon)\to k$. But $T_p\Gamma_0^\epsilon$ converge to support planes of $\Gamma_0$. Consequently, $K_{\mathcal{H}}\equiv k$ on support planes of $\Gamma_0$. Furthermore, if equality holds in \eqref{eq:higher}, then equalities hold in \eqref{eq:tildeGK}, which yields that $\tilde{\mathcal{G}}(\Gamma)=\mathcal{G}_+(\Gamma)$. So $GK_\Gamma\geq 0$. We will also have
+$\mathcal{G}_+(\Gamma)=\mathcal{G}(\Gamma\cap\Gamma_0)$, which yields that $GK_\Gamma\equiv 0$ on $\Gamma\setminus\Gamma_0$. On the other hand, $GK_\Gamma\geq 0$ on $\Gamma\cap\Gamma_0$. So it follows that $GK_\Gamma\geq 0$ everywhere. 
+\end{proof}
+
+\begin{note}
+It is not known weather the conclusion $GK_\Gamma\geq 0$ obtained in the above result implies that $\Gamma$ is convex; otherwise, the above result would imply via Theorem \ref{thm:main} that $\Gamma$ bounds a convex body where $K_\mathcal{H}\equiv k$, and establish Gromov's conjecture mentioned in the introduction for all surfaces. Alexander \cite{alexander1977} showed that $\Gamma$ is convex provided that its second fundamental form is positive semidefinite (whereas the condition $GK_\Gamma\geq 0$ means only that the second fundamental form is semidefinite).
+\end{note}
+
+\begin{note}
+If Theorem \ref{thm:main} can be extended to $\C^{1,1}$ hypersurfaces (see Notes \ref{note:GC} and \ref{note:schur}), and one can show that $\Gamma_0$ is $\C^{1,1}$, then Proposition \ref{prop:high-g} settles Gromov's conjecture in all cases. In $\R^n$ it is already known that the convex hull of a closed $\C^{1,1}$ hypersurface is $\C^{1,1}$ \cite[Note 6.8]{ghomi-spruck2022}.
+\end{note}
+
+
+
+\begin{comment}
+\begin{note}
+Let $\Gamma_0$ denote the boundary of the convex hull of $\Gamma$. Here we show
+ $\Gamma$ is a closed $\C^1$ closed immersed surface in $\mathcal{H}^3$. Then $\Gamma_0$ is $\C^1$.
+It suffices to show that the tangent cone $T_p\Gamma_0$ at each point $p$ of $\Gamma_0$ is flat. Borbely \cite{borbely1995} showed that this is the case if $p$ does not lie on a geodesic with end points on $\Gamma$. Suppose then that such a geodesic, say $g$, passes through $p$, with an end points $q$, $q'$ on $\Gamma$. Suppose, towards a contradiction, that $T_p\Gamma_0$ is not a plane. Since $T_p\Gamma_0$ is a convex hypersurface in $T_p \mathcal{H}^3$, there passes a pair of different support hyperplanes $\arc H$, $\arc H'$ of $T_p\Gamma_0$ through $p$ in $T_p \mathcal{H}^3$. Let $H$, $H'$ be the images of these hyperplanes under  $\exp_p$. Then $H$, $H'$ are complete hypersurfaces in $\mathcal{H}^3$ which support $\Gamma_0$ at $p$. 
+Since $g\subset\Gamma_0$, and $p$ is an interior point of $g$, it follows that $g\subset H\cap H'$. Thus
+$H$, $H'$ pass through $q$. Note that $\arc H$ and $\arc H'$ are transversal along the line passing through $p$ and $\exp^{-1}(q)$. Thus, since $\exp_p$ is a diffeomorphism, it follows that $H$ and $H'$ are transversal along  $g$ and in particular at $q$. Thus $T_q \Gamma$ cannot be a flat, which contradicts the differentiability assumption on $\Gamma$.
+\end{note}
+\end{comment}
+
+
+
+
+\section*{Acknowledgments}
+We thank Stephanie Alexander, Werner Ballmann,  Igor Belegradek, Misha Gromov, Joe Hoisington, and Gil Solanes for useful communications.
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}%for hiding from table of contents
+%\section*{Acknowledgments}
+
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}%to resume listing of the sections  
+\bibliography{references}
+
+\end{document}
+
+
